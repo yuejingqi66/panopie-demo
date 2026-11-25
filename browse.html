@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Opening marketplace — Panopie</title>
+    <link rel="icon" href="favicon.svg?v=pan-20261020" type="image/svg+xml">
+</head>
+  <body>
+    <p>Opening the marketplace…</p>
+    <script>
+      (() => {
+        const old = new URLSearchParams(location.search);
+        const categories = { all: 'all', hoodies: 'hoodies', tops: 'hoodies', jackets: 'jackets', outerwear: 'jackets', jeans: 'jeans', denim: 'jeans', 'cargo-pants': 'cargo-pants', cargo: 'cargo-pants', pants: 'cargo-pants', suits: 'suits', sneakers: 'athletic-shoes', shoes: 'athletic-shoes', 'athletic-shoes': 'athletic-shoes', 'leather-shoes': 'leather-shoes' };
+        const next = new URLSearchParams({ view: 'shop' });
+        const edit = (old.get('edit') || old.get('category') || '').toLowerCase();
+        if (categories[edit] && categories[edit] !== 'all') next.set('category', categories[edit]);
+        if (edit && !categories[edit]) next.set('legacy', edit);
+        if (old.get('q')) next.set('q', old.get('q'));
+        const requestedPrice = Number(String(old.get('price') || '').replace(/[^0-9.]/g, ''));
+        if (Number.isFinite(requestedPrice) && requestedPrice > 0) next.set('maxPrice', String(requestedPrice));
+        location.replace(`index.html?${next.toString()}`);
+      })();
+    </script>
+  </body>
+</html>

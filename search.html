@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Opening search — Panopie</title>
+    <link rel="icon" href="favicon.svg?v=pan-20261020" type="image/svg+xml">
+</head>
+  <body>
+    <p>Opening search…</p>
+    <script>
+      (() => {
+        const old = new URLSearchParams(location.search);
+        const next = new URLSearchParams({ view: 'shop' });
+        if (old.get('q')) next.set('q', old.get('q'));
+        location.replace(`index.html?${next.toString()}`);
+      })();
+    </script>
+  </body>
+</html>
